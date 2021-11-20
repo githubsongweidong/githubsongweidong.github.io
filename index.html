@@ -86,7 +86,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前端验证绕过"><a href="#前端验证绕过" class="headerlink" title="前端验证绕过"></a>前端验证绕过</h2><p>第一关要求前端验证绕过，就是将网页前端的安全检测代码删掉。检测代码我们所以可以使用burp抓取。</p>
+        <h1 id="黑名单"><a href="#黑名单" class="headerlink" title="黑名单"></a>黑名单</h1><h2 id="前端验证绕过"><a href="#前端验证绕过" class="headerlink" title="前端验证绕过"></a>前端验证绕过</h2><p>第一关要求前端验证绕过，就是将网页前端的安全检测代码删掉。检测代码我们所以可以使用burp抓取。</p>
 <p>思路：篡改删除前端检测代码</p>
 <ul>
 <li><p>打开burp，点击‘’intercept is on ‘’按钮</p>
@@ -100,71 +100,57 @@
 </li>
 <li></li>
 </ul>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114023136658.png" alt="image-20211114023136658"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114023136658-16372978001221.png" alt="image-20211114023136658"></p>
 <p>上传成功</p>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114023157636.png" alt="image-20211114023157636"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114023157636.png" alt="image-20211114023157636"></p>
 <p>复制图片地址可以访问成功！</p>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114023300670.png" alt="image-20211114023300670"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114023300670-16372978101122.png" alt="image-20211114023300670"></p>
 <h2 id="2-Content-Type方式绕过"><a href="#2-Content-Type方式绕过" class="headerlink" title="2.Content-Type方式绕过"></a>2.Content-Type方式绕过</h2><p>思路：burp抓包，将图片马的文件后缀修改为php类型，来绕过前端检查。</p>
 <p><a target="_blank" rel="noopener" href="http://zmie8016.ia.aqlab.cn/Pass-02/upload/shell11.php?8=phpinfo()">http://zmie8016.ia.aqlab.cn/Pass-02/upload/shell11.php?8=phpinfo()</a>;</p>
-<h2 id="1-上传图片"><a href="#1-上传图片" class="headerlink" title="1.上传图片"></a>1.上传图片</h2><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114225437477.png" alt="image-20211114225437477"></p>
-<h3 id="2-复制图片地址，-8-phpinfo-成功上传webshell"><a href="#2-复制图片地址，-8-phpinfo-成功上传webshell" class="headerlink" title="2.复制图片地址，?8=phpinfo();成功上传webshell"></a>2.复制图片地址，?8=phpinfo();成功上传webshell</h3><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114225855633.png" alt="image-20211114225855633"></p>
+<h2 id="1-上传图片"><a href="#1-上传图片" class="headerlink" title="1.上传图片"></a>1.上传图片</h2><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114225437477.png" alt="image-20211114225437477"></p>
+<h3 id="2-复制图片地址，-8-phpinfo-成功上传webshell"><a href="#2-复制图片地址，-8-phpinfo-成功上传webshell" class="headerlink" title="2.复制图片地址，?8=phpinfo();成功上传webshell"></a>2.复制图片地址，?8=phpinfo();成功上传webshell</h3><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114225855633.png" alt="image-20211114225855633"></p>
 <h2 id="3-黑名单绕过"><a href="#3-黑名单绕过" class="headerlink" title="3.黑名单绕过"></a>3.黑名单绕过</h2><p>第三关后天已经禁止上传asp,.aspx,.php,.jsp类型的文件。php后缀类型有很多，只要更换一个其他类型的扩展名就可以绕过验证。</p>
 <p>这里我们将webshell后缀修改为php3，然后上传成功</p>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114232531593.png" alt="image-20211114232531593"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114232531593.png" alt="image-20211114232531593"></p>
 <h2 id="4【-htaccess文件绕过】"><a href="#4【-htaccess文件绕过】" class="headerlink" title="4【.htaccess文件绕过】"></a>4【.htaccess文件绕过】</h2><p>AddType application/x-httpd-php .jpg</p>
 <p>思路：.htaccess文件中AddType application/x-httpd-php .jpg设置此指令，服务器便会将图片当作php文件来执行。</p>
-<p>1.将图片马上传，但此时是图片文件，不能执行相关指令<img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114235434307.png" alt="image-20211114235434307"></p>
+<p>1.将图片马上传，但此时是图片文件，不能执行相关指令<img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114235434307.png" alt="image-20211114235434307"></p>
 <p>2.上传.htaccess文件，访问图片马，出现php版本信息，webshell上传成功</p>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211114235327242.png" alt="image-20211114235327242"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211114235327242.png" alt="image-20211114235327242"></p>
 <h2 id="5-后缀大小写绕过"><a href="#5-后缀大小写绕过" class="headerlink" title="5.后缀大小写绕过"></a>5.后缀大小写绕过</h2><p>将木马的后缀修改为大写，然后绕做验证</p>
 <p>shell.php==&gt;shell.PHp</p>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211115001701104.png" alt="image-20211115001701104"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211115001701104.png" alt="image-20211115001701104"></p>
 <p>上传成功！</p>
-<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/Users\宋卫冬\AppData\Roaming\Typora\typora-user-images\image-20211115001919247.png" alt="image-20211115001919247"></p>
-<h2 id="6-文件后缀（空）绕过"><a href="#6-文件后缀（空）绕过" class="headerlink" title="6.文件后缀（空）绕过"></a>6.文件后缀（空）绕过</h2><h2 id="7-文件后缀-点-绕过"><a href="#7-文件后缀-点-绕过" class="headerlink" title="7.文件后缀(点)绕过"></a>7.文件后缀(点)绕过</h2><h2 id="8-DATA（Windows文件流绕过）"><a href="#8-DATA（Windows文件流绕过）" class="headerlink" title="8::$DATA（Windows文件流绕过）"></a>8::$DATA（Windows文件流绕过）</h2><h2 id="9-构造文件后缀绕过"><a href="#9-构造文件后缀绕过" class="headerlink" title="9.构造文件后缀绕过"></a>9.构造文件后缀绕过</h2><h2 id="10-双写文件后缀绕过"><a href="#10-双写文件后缀绕过" class="headerlink" title="10.双写文件后缀绕过"></a>10.双写文件后缀绕过</h2>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211115001919247.png" alt="image-20211115001919247"></p>
+<h2 id="6-文件后缀（空）绕过"><a href="#6-文件后缀（空）绕过" class="headerlink" title="6.文件后缀（空）绕过"></a>6.文件后缀（空）绕过</h2><p>思路：</p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132238675.png" alt="image-20211119132238675"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132118344.png" alt="image-20211119132118344"></p>
+<h2 id="7-文件后缀-点-绕过"><a href="#7-文件后缀-点-绕过" class="headerlink" title="7.文件后缀(点)绕过"></a>7.文件后缀(点)绕过</h2><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132436548.png" alt="image-20211119132436548"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132736155.png" alt="image-20211119132736155"></p>
+<h2 id="8-DATA（Windows文件流绕过）"><a href="#8-DATA（Windows文件流绕过）" class="headerlink" title="8::$DATA（Windows文件流绕过）"></a>8::$DATA（Windows文件流绕过）</h2><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132848390.png" alt="image-20211119132848390"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132928470.png" alt="image-20211119132928470"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119132952580.png" alt="image-20211119132952580"></p>
+<h2 id="9-构造文件后缀绕过"><a href="#9-构造文件后缀绕过" class="headerlink" title="9.构造文件后缀绕过"></a>9.构造文件后缀绕过</h2><p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119133545769.png" alt="image-20211119133545769"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119133616253.png" alt="image-20211119133616253"></p>
+<h2 id="10-双写文件后缀绕过"><a href="#10-双写文件后缀绕过" class="headerlink" title="10.双写文件后缀绕过"></a>10.双写文件后缀绕过</h2><p>shell11.pphphp</p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119133805262.png" alt="image-20211119133805262"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119133837224-16373003178543-16373003188684.png" alt="image-20211119133837224"></p>
+<h1 id="白名单"><a href="#白名单" class="headerlink" title="白名单"></a>白名单</h1><h2 id="11-00截断绕过"><a href="#11-00截断绕过" class="headerlink" title="11.%00截断绕过"></a>11.%00截断绕过</h2><p>提示：只允许上传.jpg|.png|.gif类型文件！</p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119134629810.png" alt="image-20211119134629810"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119135032942.png" alt="image-20211119135032942"></p>
+<p><a target="_blank" rel="noopener" href="http://zmie8016.ia.aqlab.cn/upload/kk.php%EF%BF%BD/8820211119135039.jpg">http://zmie8016.ia.aqlab.cn/upload/kk.php%EF%BF%BD/8820211119135039.jpg</a></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211119135126121.png" alt="image-20211119135126121"></p>
+<p>最好将%00去掉访问</p>
+<h2 id="12-00截断绕过-二"><a href="#12-00截断绕过-二" class="headerlink" title="12.%00截断绕过(二)"></a>12.%00截断绕过(二)</h2><p>../upload/kkk.phpa</p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211120205738272.png" alt="image-20211120205738272"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211120210438950.png" alt="image-20211120210438950"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211120210513339.png" alt="image-20211120210513339"></p>
+<p><img src="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/image-20211120210625680.png" alt="image-20211120210625680"></p>
+<h2 id="13-图片马绕过"><a href="#13-图片马绕过" class="headerlink" title="13.图片马绕过"></a>13.图片马绕过</h2><h2 id="14-getimagesize图片类型绕过"><a href="#14-getimagesize图片类型绕过" class="headerlink" title="14.getimagesize图片类型绕过"></a>14.getimagesize图片类型绕过</h2><h2 id="15-php-exif模块图片类型绕过"><a href="#15-php-exif模块图片类型绕过" class="headerlink" title="15.php_exif模块图片类型绕过"></a>15.php_exif模块图片类型绕过</h2><h2 id="16-二次渲染绕过"><a href="#16-二次渲染绕过" class="headerlink" title="16.二次渲染绕过"></a>16.二次渲染绕过</h2><h2 id="17-条件竞争绕过"><a href="#17-条件竞争绕过" class="headerlink" title="17.条件竞争绕过"></a>17.条件竞争绕过</h2><h2 id="18-条件竞争（二）"><a href="#18-条件竞争（二）" class="headerlink" title="18.条件竞争（二）"></a>18.条件竞争（二）</h2><h2 id="19-move-uploaded-file-截断"><a href="#19-move-uploaded-file-截断" class="headerlink" title="19.move_uploaded_file()截断"></a>19.move_uploaded_file()截断</h2><h2 id="20-IIS6-0解析漏洞（一）"><a href="#20-IIS6-0解析漏洞（一）" class="headerlink" title="20.IIS6.0解析漏洞（一）"></a>20.IIS6.0解析漏洞（一）</h2><h2 id="21-IIS6-0解析漏洞（二）"><a href="#21-IIS6-0解析漏洞（二）" class="headerlink" title="21.IIS6.0解析漏洞（二）"></a>21.IIS6.0解析漏洞（二）</h2><h2 id="22-IIS6-0解析漏洞（三）"><a href="#22-IIS6-0解析漏洞（三）" class="headerlink" title="22.IIS6.0解析漏洞（三）"></a>22.IIS6.0解析漏洞（三）</h2><h2 id="23-解析漏洞（四）"><a href="#23-解析漏洞（四）" class="headerlink" title="23.解析漏洞（四）"></a>23.解析漏洞（四）</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/" data-id="ckw5aytqm0001cosxf98w7kzs" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hexo博客搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/11/18/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-date">
-  <time datetime="2021-11-17T19:59:53.000Z" itemprop="datePublished">2021-11-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/18/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><h3 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1.安装git"></a>1.安装git</h3><p><img src="/2021/11/18/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/image-20211118040148904.png" alt="image-20211118040148904"></p>
-<p><img src="/2021/11/18/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/image-20211118041110314.png" alt="image-20211118041110314"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/18/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-id="ckw5aytqp0002cosx4zd95exl" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/" data-id="ckw5x2clw0001ugsx9ft7eoru" class="article-share-link">Share</a>
       
       
     </footer>
@@ -213,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/17/hello-world/" data-id="ckw5aytqf0000cosx5ntq9611" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/17/hello-world/" data-id="ckw5x5m0i0002ugsx57q34mke" class="article-share-link">Share</a>
       
       
     </footer>
@@ -255,10 +241,6 @@
         
           <li>
             <a href="/2021/11/19/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BD%9C%E4%B8%9A/">文件上传作业</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/18/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">hexo博客搭建</a>
           </li>
         
           <li>
