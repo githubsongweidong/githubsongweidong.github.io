@@ -20,17 +20,22 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="表里面有字段 字段里面字段的名称和类型  表里面还有数据或者说是【记录】  1git config --global user.email &quot;751480137@qq.com&quot;  1git config --global user.name &quot;githubsongweidong  1ssh-keygen -t rsa -C &quot;751480137@qq.co">
+<meta name="description" content="数据库的结构：表里面有字段 字段里面字段的名称和类型  表里面还有数据或者说是【记录】  1git config --global user.email &quot;751480137@qq.com&quot;  1git config --global user.name &quot;githubsongweidong  1ssh-keygen -t rsa -C &quot;751480137">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初识数据库">
 <meta property="og:url" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
 <meta property="og:site_name" content="宋卫冬的博客">
-<meta property="og:description" content="表里面有字段 字段里面字段的名称和类型  表里面还有数据或者说是【记录】  1git config --global user.email &quot;751480137@qq.com&quot;  1git config --global user.name &quot;githubsongweidong  1ssh-keygen -t rsa -C &quot;751480137@qq.co">
+<meta property="og:description" content="数据库的结构：表里面有字段 字段里面字段的名称和类型  表里面还有数据或者说是【记录】  1git config --global user.email &quot;751480137@qq.com&quot;  1git config --global user.name &quot;githubsongweidong  1ssh-keygen -t rsa -C &quot;751480137">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211123140725717.png">
 <meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211123140957086.png">
+<meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124204742611.png">
+<meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124204804905-16377580858581.png">
+<meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205050684.png">
+<meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205144753.png">
+<meta property="og:image" content="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205202635.png">
 <meta property="article:published_time" content="2021-11-23T06:23:52.000Z">
-<meta property="article:modified_time" content="2021-11-23T15:47:27.487Z">
+<meta property="article:modified_time" content="2021-11-24T13:23:44.830Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="1">
 <meta property="article:tag" content="2">
@@ -113,7 +118,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -126,6 +131,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">数据库的结构：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BA%86%E8%A7%A3%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A8%E6%80%81%E8%AF%AD%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">一、了解什么是动态语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">二、服务器环境的快速搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81phpstudy%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">三、phpstudy功能介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99%EF%BC%88%E9%80%9A%E8%BF%87CMS%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">四、快速搭建一个网站（通过CMS）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%98%93%E9%94%99%E5%9B%9E%E7%AD%94%E5%88%86%E6%9E%90"><span class="nav-number">7.</span> <span class="nav-text">五、易错回答分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-phpstdy%E5%93%AA%E9%87%8C%E5%8F%AF%E4%BB%A5%E4%B8%8B%E8%BD%BD%EF%BC%9F%E3%80%82"><span class="nav-number">7.1.</span> <span class="nav-text">\1. phpstdy哪里可以下载？。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-phpstudy%E5%88%87%E6%8D%A2%E9%AB%98%E7%89%88%E6%9C%ACphp%E9%9C%80%E8%A6%81vc9%E5%BA%93%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">7.2.</span> <span class="nav-text">\2. phpstudy切换高版本php需要vc9库怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-phpstudy%E5%82%BB%E7%93%9C%E5%BC%8F%E5%AE%89%E8%A3%85%E5%A5%BD%E5%90%8E%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="nav-number">7.3.</span> <span class="nav-text">\3. phpstudy傻瓜式安装好后，数据库账号密码是多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AE%E6%88%91%E4%BB%AC%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E7%9A%84web%E7%8E%AF%E5%A2%83%EF%BC%9F"><span class="nav-number">7.4.</span> <span class="nav-text">\4. 如何访问我们快速搭建的web环境？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-phpstudy%E7%BD%91%E7%AB%99%E6%A0%B9%E7%9B%AE%E5%BD%95%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="nav-number">7.5.</span> <span class="nav-text">\5. phpstudy网站根目录在哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">7.6.</span> <span class="nav-text">\6. 如何访问数据库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%A6%82%E4%BD%95%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="nav-number">7.7.</span> <span class="nav-text">\7. 如何命令行访问数据库？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-phpmyadmin%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%AF%86%E7%A0%81%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">7.8.</span> <span class="nav-text">\8. phpmyadmin默认用户名密码是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-phpstudy%E4%B8%AD%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E5%92%8C%E9%9D%9E%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">7.9.</span> <span class="nav-text">\9. phpstudy中的系统服务和非服务模式有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-MYSQL%E5%92%8Capache%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%AF%E4%BB%A5%E5%88%86%E5%88%AB%E5%BC%80%E5%85%B3%E5%90%97"><span class="nav-number">7.10.</span> <span class="nav-text">\10. MYSQL和apache的环境可以分别开关吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E5%A6%82%E4%BD%95%E5%85%B3%E9%97%ADphpstudy%EF%BC%9F"><span class="nav-number">7.11.</span> <span class="nav-text">\11. 如何关闭phpstudy？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%BF%98%E8%AE%B0%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">7.12.</span> <span class="nav-text">\12. 数据库密码忘记怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-phpstudy%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8iis%E5%90%97"><span class="nav-number">7.13.</span> <span class="nav-text">\13. phpstudy可以使用iis吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-phpstudy-80%E7%AB%AF%E5%8F%A3%E8%A2%AB%E5%8D%A0%E7%94%A8%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">7.14.</span> <span class="nav-text">\14. phpstudy 80端口被占用怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-phpstudy%E4%B8%AD%E7%9A%84%E7%BD%91%E7%AB%99%E6%A0%B9%E7%9B%AE%E5%BD%95%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E6%94%BE%E5%9C%A8%E5%90%8C%E4%B8%80%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%9F"><span class="nav-number">7.15.</span> <span class="nav-text">\15. phpstudy中的网站根目录和数据库存放在同一文件夹？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-phpstudy%E5%A6%82%E4%BD%95%E5%88%87%E6%8D%A2php%E7%89%88%E6%9C%AC%E6%88%96%E8%80%85%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">7.16.</span> <span class="nav-text">\16. phpstudy如何切换php版本或者中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-phpstudy%E5%8F%AF%E4%BB%A5%E5%AE%89%E8%A3%85ftp%E6%9C%8D%E5%8A%A1%E5%90%97%EF%BC%9F"><span class="nav-number">7.17.</span> <span class="nav-text">\17. phpstudy可以安装ftp服务吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-%E5%A6%82%E4%BD%95%E5%AF%B9%E7%AB%99%E7%82%B9%E5%9F%9F%E5%90%8D%E8%BF%9B%E8%A1%8C%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.18.</span> <span class="nav-text">\18. 如何对站点域名进行设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-%E5%A6%82%E4%BD%95%E5%B0%9D%E8%AF%95%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%A4%9A%E4%B8%AA%E7%AB%AF%E5%8F%A3%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AAWEB%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.19.</span> <span class="nav-text">\19. 如何尝试一台服务器开多个端口运行多个WEB服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-%E5%9C%A8%E5%93%AA%E9%87%8C%E9%85%8D%E7%BD%AEphp-ini"><span class="nav-number">7.20.</span> <span class="nav-text">\20. 在哪里配置php-ini</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E5%8A%A8%E6%80%81%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80%E5%92%8C%E5%90%8E%E7%AB%AF%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">7.21.</span> <span class="nav-text">\21. 动态脚本语言和后端语言的区别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-%E4%BD%A0%E8%AE%BF%E9%97%AE%E4%BD%A0%E7%9A%84%E5%9C%B0%E5%9D%80%E7%9C%8B%E4%B8%8D%E5%88%B0%E7%9B%AE%E5%BD%95%E4%BF%A1%E6%81%AF%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">7.22.</span> <span class="nav-text">\22. 你访问你的地址看不到目录信息怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-Windows%E6%9C%89%E8%BF%99%E6%A0%B7%E7%9A%84%E5%BF%AB%E9%80%9F%E8%87%AA%E5%BB%BA%E7%8E%AF%E5%A2%83%EF%BC%8Clinux%E6%9C%89%E5%90%97%EF%BC%9F"><span class="nav-number">7.23.</span> <span class="nav-text">\23. Windows有这样的快速自建环境，linux有吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%E4%BA%86phpstudy%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%BA%86web%E7%8E%AF%E5%A2%83%EF%BC%8C%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E7%BD%91%E7%AB%99%EF%BC%9F"><span class="nav-number">7.24.</span> <span class="nav-text">\24. 我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%E5%A4%96%E8%BF%9E%EF%BC%9F"><span class="nav-number">7.25.</span> <span class="nav-text">\25. 数据库如何开启外连？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-iis%E6%98%AF%E4%B8%8D%E6%98%AF%E5%8F%AA%E8%83%BD%E8%BF%90%E8%A1%8Casp%E6%88%96%E8%80%85aspx"><span class="nav-number">7.26.</span> <span class="nav-text">\26. iis是不是只能运行asp或者aspx?</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -138,7 +144,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -149,7 +155,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -211,10 +217,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-11-23 14:23:52 / 修改时间：23:47:27" itemprop="dateCreated datePublished" datetime="2021-11-23T14:23:52+08:00">2021-11-23</time>
+      <time title="创建时间：2021-11-23 14:23:52" itemprop="dateCreated datePublished" datetime="2021-11-23T14:23:52+08:00">2021-11-23</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-24 21:23:44" itemprop="dateModified" datetime="2021-11-24T21:23:44+08:00">2021-11-24</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -235,7 +247,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p> 表里面有字段</p>
+        <h2 id="数据库的结构："><a href="#数据库的结构：" class="headerlink" title="数据库的结构："></a>数据库的结构：</h2><p>表里面有字段</p>
 <p>字段里面字段的名称和类型</p>
 <p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211123140725717.png" alt="image-20211123140725717"></p>
 <p>表里面还有数据或者说是【记录】</p>
@@ -246,6 +258,39 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;751480137@qq.com&quot;</span><br></pre></td></tr></table></figure>
 
+<h2 id="一、了解什么是动态语言"><a href="#一、了解什么是动态语言" class="headerlink" title="一、了解什么是动态语言"></a>一、了解什么是动态语言</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124204742611.png" alt="image-20211124204742611"></p>
+<p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124204804905-16377580858581.png" alt="image-20211124204804905"></p>
+<h2 id="二、服务器环境的快速搭建"><a href="#二、服务器环境的快速搭建" class="headerlink" title="二、服务器环境的快速搭建"></a>二、服务器环境的快速搭建</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205050684.png" alt="image-20211124205050684"></p>
+<h2 id="三、phpstudy功能介绍"><a href="#三、phpstudy功能介绍" class="headerlink" title="三、phpstudy功能介绍"></a>三、phpstudy功能介绍</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205144753.png" alt="image-20211124205144753"></p>
+<h2 id="四、快速搭建一个网站（通过CMS）"><a href="#四、快速搭建一个网站（通过CMS）" class="headerlink" title="四、快速搭建一个网站（通过CMS）"></a>四、快速搭建一个网站（通过CMS）</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205202635.png" alt="image-20211124205202635"></p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h2 id="五、易错回答分析"><a href="#五、易错回答分析" class="headerlink" title="五、易错回答分析"></a>五、易错回答分析</h2><p>快速自建Web环境-易错回答分析</p>
+<h3 id="1-phpstdy哪里可以下载？。"><a href="#1-phpstdy哪里可以下载？。" class="headerlink" title="\1. phpstdy哪里可以下载？。"></a>\1. phpstdy哪里可以下载？。</h3><p>可以去官网下载，也可以在群下载，官网下载的是2018版本，我提供的是2016版本</p>
+<h3 id="2-phpstudy切换高版本php需要vc9库怎么办？"><a href="#2-phpstudy切换高版本php需要vc9库怎么办？" class="headerlink" title="\2. phpstudy切换高版本php需要vc9库怎么办？"></a>\2. phpstudy切换高版本php需要vc9库怎么办？</h3><p>老师给你们提供，我会发在群里面，同学们可以自行寻找。</p>
+<h3 id="3-phpstudy傻瓜式安装好后，数据库账号密码是多少？"><a href="#3-phpstudy傻瓜式安装好后，数据库账号密码是多少？" class="headerlink" title="\3. phpstudy傻瓜式安装好后，数据库账号密码是多少？"></a>\3. phpstudy傻瓜式安装好后，数据库账号密码是多少？</h3><p>账号密码都是root (数据库账号和密码必须修改，不然容易被入侵)</p>
+<h3 id="4-如何访问我们快速搭建的web环境？"><a href="#4-如何访问我们快速搭建的web环境？" class="headerlink" title="\4. 如何访问我们快速搭建的web环境？"></a>\4. 如何访问我们快速搭建的web环境？</h3><p>当phpstudy开着中间件的时候直接访问127.0.0.1就可以看到web环境，默认打开的文件是index.html</p>
+<h3 id="5-phpstudy网站根目录在哪里？"><a href="#5-phpstudy网站根目录在哪里？" class="headerlink" title="\5. phpstudy网站根目录在哪里？"></a>\5. phpstudy网站根目录在哪里？</h3><p>网站根目录在phpstudy文件夹下面的www目录（phpstudy 2016版本）</p>
+<h3 id="6-如何访问数据库？"><a href="#6-如何访问数据库？" class="headerlink" title="\6. 如何访问数据库？"></a>\6. 如何访问数据库？</h3><p>我建议使用phpstudy的自带软件，phpmyadmin和mysql-front ，当然命令行也是可以的</p>
+<h3 id="7-如何命令行访问数据库？"><a href="#7-如何命令行访问数据库？" class="headerlink" title="\7. 如何命令行访问数据库？"></a>\7. 如何命令行访问数据库？</h3><p>有些情况下直接选择其他选项中的CMD命令行，然后直接mysql -u root -p 就能访问到数据库，有的时候不行，如果不行的话请你将phpstudy目录下的mysql文件夹下的bin文件夹加入环境变量就行</p>
+<h3 id="8-phpmyadmin默认用户名密码是什么？"><a href="#8-phpmyadmin默认用户名密码是什么？" class="headerlink" title="\8. phpmyadmin默认用户名密码是什么？"></a>\8. phpmyadmin默认用户名密码是什么？</h3><p>就是数据库账号密码 root root</p>
+<h3 id="9-phpstudy中的系统服务和非服务模式有什么区别"><a href="#9-phpstudy中的系统服务和非服务模式有什么区别" class="headerlink" title="\9. phpstudy中的系统服务和非服务模式有什么区别"></a>\9. phpstudy中的系统服务和非服务模式有什么区别</h3><p>系统服务，开机自动启动，非服务模式不会</p>
+<h3 id="10-MYSQL和apache的环境可以分别开关吗"><a href="#10-MYSQL和apache的环境可以分别开关吗" class="headerlink" title="\10. MYSQL和apache的环境可以分别开关吗"></a>\10. MYSQL和apache的环境可以分别开关吗</h3><p>可以，在服务管理器里可以切换.</p>
+<h3 id="11-如何关闭phpstudy？"><a href="#11-如何关闭phpstudy？" class="headerlink" title="\11. 如何关闭phpstudy？"></a>\11. 如何关闭phpstudy？</h3><p>关闭phpstudy必须要点击停止，直接叉掉或者退出或者结束phpstudy进程都没有用，数据库和web服务依旧在运行</p>
+<h3 id="12-数据库密码忘记怎么办？"><a href="#12-数据库密码忘记怎么办？" class="headerlink" title="\12. 数据库密码忘记怎么办？"></a>\12. 数据库密码忘记怎么办？</h3><p>在MYSQL工具里的重置密码</p>
+<h3 id="13-phpstudy可以使用iis吗"><a href="#13-phpstudy可以使用iis吗" class="headerlink" title="\13. phpstudy可以使用iis吗"></a>\13. phpstudy可以使用iis吗</h3><p>当然可以，phpstudy支持多个中间件，Nginx和iis和apache,在版本切换可以看到</p>
+<h3 id="14-phpstudy-80端口被占用怎么办？"><a href="#14-phpstudy-80端口被占用怎么办？" class="headerlink" title="\14. phpstudy 80端口被占用怎么办？"></a>\14. phpstudy 80端口被占用怎么办？</h3><p>在环境端口检测处，关闭占用进程并启动</p>
+<h3 id="15-phpstudy中的网站根目录和数据库存放在同一文件夹？"><a href="#15-phpstudy中的网站根目录和数据库存放在同一文件夹？" class="headerlink" title="\15. phpstudy中的网站根目录和数据库存放在同一文件夹？"></a>\15. phpstudy中的网站根目录和数据库存放在同一文件夹？</h3><p>不在同一文件夹下，根目录在WWW 而数据库在data文件夹下</p>
+<h3 id="16-phpstudy如何切换php版本或者中间件"><a href="#16-phpstudy如何切换php版本或者中间件" class="headerlink" title="\16. phpstudy如何切换php版本或者中间件"></a>\16. phpstudy如何切换php版本或者中间件</h3><p>在php版本的地方进行选择（建议使用5.4.45）</p>
+<h3 id="17-phpstudy可以安装ftp服务吗？"><a href="#17-phpstudy可以安装ftp服务吗？" class="headerlink" title="\17. phpstudy可以安装ftp服务吗？"></a>\17. phpstudy可以安装ftp服务吗？</h3><p>可以，其他选项菜单里的其他高级应用里，有一个ftp管理器里可以进行设置</p>
+<h3 id="18-如何对站点域名进行设置"><a href="#18-如何对站点域名进行设置" class="headerlink" title="\18. 如何对站点域名进行设置"></a>\18. 如何对站点域名进行设置</h3><p>在Mysql管理器选项和其他选项都有，站点域名管理处，可以进行设置</p>
+<h3 id="19-如何尝试一台服务器开多个端口运行多个WEB服务"><a href="#19-如何尝试一台服务器开多个端口运行多个WEB服务" class="headerlink" title="\19. 如何尝试一台服务器开多个端口运行多个WEB服务"></a>\19. 如何尝试一台服务器开多个端口运行多个WEB服务</h3><p>在Mysql管理器选项和其他选项都有，站点域名管理处，可以进行设置</p>
+<h3 id="20-在哪里配置php-ini"><a href="#20-在哪里配置php-ini" class="headerlink" title="\20. 在哪里配置php-ini"></a>\20. 在哪里配置php-ini</h3><p>其它选项菜单,配置文件处，可以找到php-ini (php-ini是php的配置文件)</p>
+<h3 id="21-动态脚本语言和后端语言的区别是什么？"><a href="#21-动态脚本语言和后端语言的区别是什么？" class="headerlink" title="\21. 动态脚本语言和后端语言的区别是什么？"></a>\21. 动态脚本语言和后端语言的区别是什么？</h3><p>动态脚本语言和后端语言是一个东西，常见的有php|aspx|aspx|jsp</p>
+<h3 id="22-你访问你的地址看不到目录信息怎么办？"><a href="#22-你访问你的地址看不到目录信息怎么办？" class="headerlink" title="\22. 你访问你的地址看不到目录信息怎么办？"></a>\22. 你访问你的地址看不到目录信息怎么办？</h3><p>在phpstudy设置中选择允许目录列表</p>
+<h3 id="23-Windows有这样的快速自建环境，linux有吗？"><a href="#23-Windows有这样的快速自建环境，linux有吗？" class="headerlink" title="\23. Windows有这样的快速自建环境，linux有吗？"></a>\23. Windows有这样的快速自建环境，linux有吗？</h3><p>当然有，linux有一个lnmp，实际上都是集成环境~</p>
+<h3 id="24-我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？"><a href="#24-我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？" class="headerlink" title="\24. 我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？"></a>\24. 我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？</h3><p>有一种东西叫做CMS，我们只需要将网上下载的CMS源码放入WWW文件夹，然后访问安装的文件夹就可以快速建站</p>
+<h3 id="25-数据库如何开启外连？"><a href="#25-数据库如何开启外连？" class="headerlink" title="\25. 数据库如何开启外连？"></a>\25. 数据库如何开启外连？</h3><p>mysql工具栏的命令行，打开选择数据库mysql,输入 grant all privileges on <em>.</em> to root@’%’ identified by ‘你的root密码’; 执行flush privileges; 检查是否开启3306 </p>
+<h3 id="26-iis是不是只能运行asp或者aspx"><a href="#26-iis是不是只能运行asp或者aspx" class="headerlink" title="\26. iis是不是只能运行asp或者aspx?"></a>\26. iis是不是只能运行asp或者aspx?</h3><p>并不是的，我就装过插件让iis6.0运行php</p>
+<p>注：25个问题总结考虑到多方面因素，有基础有进阶，并不是说该课程必须掌握的25个地方，只是遇到问题看看是否在这里方便学习！！！</p>
 
     </div>
 
@@ -268,6 +313,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2021/11/25/hacking/" rel="next" title="hacking">
+                  hacking <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>

