@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="[TOC] 正则表达式基础知识简介1正则表达式，又称规则表达式。（Regular Expression，简写为regex、regexp或RE），通常被用来检索、替换那些符合某个模式(规则)的文本。  用途：12判断字符串是否符合某一规则（判断是否符合手机号、邮箱规则）。从一个字符串中找出符合规则的所有子字符串（取HTML标签名）。  常用函数12345678PHP中使用正则规则一定要加代表正则的标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="宋卫冬的博客">
+<meta property="og:description" content="[TOC] 正则表达式基础知识简介1正则表达式，又称规则表达式。（Regular Expression，简写为regex、regexp或RE），通常被用来检索、替换那些符合某个模式(规则)的文本。  用途：12判断字符串是否符合某一规则（判断是否符合手机号、邮箱规则）。从一个字符串中找出符合规则的所有子字符串（取HTML标签名）。  常用函数12345678PHP中使用正则规则一定要加代表正则的标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204221055396.png">
+<meta property="og:image" content="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204230846536.png">
+<meta property="og:image" content="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204230735720.png">
+<meta property="article:published_time" content="2021-12-04T13:19:50.000Z">
+<meta property="article:modified_time" content="2021-12-04T16:46:38.631Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="正则表达式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204221055396.png">
+
+
+<link rel="canonical" href="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/","path":"2021/12/04/正则表达式/","title":"正则表达式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>正则表达式 | 宋卫冬的博客</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">宋卫冬的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">正则表达式基础知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E9%80%94%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">用途：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">常用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">5.1.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%99%90%E5%AE%9A%E7%AC%A6%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">限定符：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9A"><span class="nav-number">5.3.</span> <span class="nav-text">修饰符：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A"><span class="nav-number">6.</span> <span class="nav-text">作业</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">题目分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%89%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">涉及相关函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%AD%A5%E9%AA%A4"><span class="nav-number"></span> <span class="nav-text">解题步骤</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="宋卫冬的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          正则表达式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-04 21:19:50" itemprop="dateCreated datePublished" datetime="2021-12-04T21:19:50+08:00">2021-12-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-05 00:46:38" itemprop="dateModified" datetime="2021-12-05T00:46:38+08:00">2021-12-05</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>[TOC]</p>
+<h4 id="正则表达式基础知识"><a href="#正则表达式基础知识" class="headerlink" title="正则表达式基础知识"></a>正则表达式基础知识</h4><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正则表达式，又称规则表达式。（Regular Expression，简写为regex、regexp或RE），通常被用来检索、替换那些符合某个模式(规则)的文本。</span><br></pre></td></tr></table></figure>
+
+<h4 id="用途："><a href="#用途：" class="headerlink" title="用途："></a>用途：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">判断字符串是否符合某一规则（判断是否符合手机号、邮箱规则）。</span><br><span class="line">从一个字符串中找出符合规则的所有子字符串（取HTML标签名）。</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PHP中使用正则规则一定要加代表正则的标识/ / </span><br><span class="line"></span><br><span class="line">preg_match_all(正则表达式、匹配字符串、匹配到的东西放入数组) </span><br><span class="line">返回匹配到的次数</span><br><span class="line"></span><br><span class="line">preg_replace  (正则表达式、替换成什么、匹配字符串) </span><br><span class="line">返回替换后的结果</span><br><span class="line">替换支持数组格式</span><br></pre></td></tr></table></figure>
+
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>常用转义字符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">数字：\d </span><br><span class="line">非数字：\D</span><br><span class="line">空白字符（空格、制表符、换页符等）：\s</span><br><span class="line">非空白字符：\S</span><br><span class="line">单词字符（26个英文字母+数字+下划线_）：\w</span><br><span class="line">非单词字符：\W</span><br></pre></td></tr></table></figure>
+
+<p>自定义字符结合</p>
+<p>1.字符集合</p>
+<p>字符集合：[单个字符或字符区间]，用于匹配<strong>集合内</strong>字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[a-z]表示a-z这26个小写字母</span><br><span class="line">[0-9a-z]表示0-9这10个数字和a-z26个小写字母</span><br><span class="line">[135a-h]表示包含数字1，3，5和字母a-h这8个字母</span><br><span class="line">注意：两个不同字符段间请勿使用,隔开。</span><br></pre></td></tr></table></figure>
+
+<p>2.非集</p>
+<p>非集：[单个字符或字符区间]，用于匹配<strong>非集合内</strong>字符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[^0-9]表示匹配所有非数字字符。</span><br><span class="line">[^a-zA-Z]表示匹配所以非字母字符。</span><br></pre></td></tr></table></figure>
+
+<h5 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; 和数学一样很像，代表这是一个整体。</span><br><span class="line">^  =&gt; 匹配输入字符串的开始位置</span><br><span class="line">$  =&gt; 匹配输入字符串的结尾位置</span><br><span class="line">.  =&gt; 通配符[代表任意字符][不匹配换行]</span><br><span class="line">*  =&gt; 匹配0次或者多次</span><br><span class="line">+  =&gt; 匹配1次或者多次</span><br><span class="line">\  =&gt; 转义字符</span><br><span class="line">|  =&gt; 两项之间的一个选择。</span><br></pre></td></tr></table></figure>
+
+<h5 id="限定符："><a href="#限定符：" class="headerlink" title="限定符："></a>限定符：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;n&#125;     =&gt;例如: 0&#123;8&#125; 意思是 只有连起来8个0才会被匹配   </span><br><span class="line">&#123;n,&#125;    =&gt;例如：0&#123;2,&#125; 意思是 只要有2个0及其以上的就会被匹配</span><br><span class="line">&#123;n,m&#125;   =&gt;例如：0&#123;2,4&#125; 意思是 最少匹配2个0，最多匹配4个0</span><br><span class="line">注：被匹配时，默认匹配最多的次数</span><br></pre></td></tr></table></figure>
+
+<h5 id="修饰符："><a href="#修饰符：" class="headerlink" title="修饰符："></a>修饰符：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/i    =&gt; 不区分大小写</span><br><span class="line">/A    =&gt; 匹配规则必须从头开始匹配</span><br><span class="line">/s    =&gt; .将匹配一切字符</span><br><span class="line">/x    =&gt; 正则表达式中的空白字符会被忽略</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h4><h4 id="题目分析："><a href="#题目分析：" class="headerlink" title="题目分析："></a>题目分析：</h4><p>通过Get传参，构造字符串与规则进行匹配。如果匹配到就将结果存到 $match里面，并输出key值。</p>
+<p><img src="/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204221055396.png" alt="image-20211204221055396"></p>
+<h3 id="涉及相关函数："><a href="#涉及相关函数：" class="headerlink" title="涉及相关函数："></a>涉及相关函数：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">preg_match_all(正则表达式、匹配字符串、匹配到的东西放入数组) </span><br><span class="line">返回匹配到的次数</span><br><span class="line"></span><br><span class="line">trim() 函数移除字符串两侧的空白字符或其他预定义字符。对我们传入的字符串进行一些删除操作。</span><br></pre></td></tr></table></figure>
+
+<h3 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/zkaq.*key.&#123;2,9&#125;:\/.*\/(key*key)/i&quot;</span><br><span class="line"></span><br><span class="line">//  =&gt;&gt;  PHP中使用正则规则一定要加代表正则的标识双斜杠//</span><br><span class="line">/i  =&gt;&gt;  这是修饰符，表示我们输入的key值不限制大小写，大小写都可以</span><br><span class="line"></span><br><span class="line">zkaq   =&gt;&gt;  这是字符串直接复制下来就可以</span><br><span class="line">【key】：zkaq</span><br><span class="line"></span><br><span class="line">.*   =&gt;&gt;  表示任意字符的任意次数，输入aa即可</span><br><span class="line">【key】：zkaqaa</span><br><span class="line"></span><br><span class="line">key   =&gt;&gt;  这是字符串直接复制下来就可以</span><br><span class="line">【key】：zkaqaakey</span><br><span class="line"></span><br><span class="line">.&#123;2,9&#125;   =&gt;&gt; 表示最少匹配2个任意字符，最多匹配4个任意字符，我们输2个b</span><br><span class="line">【key】：zkaqaakeybb</span><br><span class="line"></span><br><span class="line">:  =&gt;&gt;  这里直接复制下来就可以</span><br><span class="line">【key】：zkaqaakeybb:</span><br><span class="line"></span><br><span class="line">\/  =&gt;&gt;  对斜杆/进行转义，将/复制下来就可以</span><br><span class="line">【key】：zkaqaakeybb:/</span><br><span class="line"></span><br><span class="line">.*  =&gt;&gt;  表示任意字符的任意次数，我们输入2个c</span><br><span class="line">【key】：zkaqaakeybb:/cc</span><br><span class="line"></span><br><span class="line">\/  =&gt;&gt;  对斜杆/进行转义，将/复制下来就可以</span><br><span class="line">【key】：zkaqaakeybb:/cc/</span><br><span class="line"></span><br><span class="line">(key*key)  =&gt;&gt;  ()括号是关键字，表示key*key是一个整体。*星号是匹配y的次数不是匹配*前面的key。key*key中间只能有0个y或者多个y。key*key中间我们增加一个y。而且第二个key后面是可以随便填写的，不限制。</span><br><span class="line">【key】：zkaqaakeybb:/cc/keyykey666</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>将构造的key值拼接到浏览器url栏，进行访问，然后就可以得到key</p>
+<p><img src="/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204230846536.png" alt="image-20211204230846536"></p>
+<p>flag:</p>
+<p>flag{regular_god_code}</p>
+<p><img src="/2021/12/04/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/image-20211204230735720.png" alt="image-20211204230735720"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag"># 正则表达式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/03/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" rel="prev" title="软件安装">
+                  <i class="fa fa-chevron-left"></i> 软件安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/05/python%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91/" rel="next" title="python安全工具开发">
+                  python安全工具开发 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
